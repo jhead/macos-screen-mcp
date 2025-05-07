@@ -126,7 +126,7 @@ class WindowManager:
 
             # Convert image data to numpy array and handle BGRA to RGBA conversion
             buffer = np.frombuffer(image_data, dtype=np.uint8)
-            array = buffer.reshape(height, width, 4)
+            array = buffer.reshape(height, bytes_per_row // 4, 4)
             # Convert BGRA to RGBA by swapping the R and B channels
             array = array[..., [2, 1, 0, 3]]
             
@@ -180,4 +180,4 @@ class WindowManager:
                 return window['id']
                 
         logger.warning(f"No window found with title or owner containing '{title}'")
-        return None 
+        return None
